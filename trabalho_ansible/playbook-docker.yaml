@@ -3,7 +3,7 @@
   debugger: on_skipped
 
   tasks:
-  - name: Instalando docker & docker compose juntos 
+  - name: Instalando docker & docker compose
     apt:
       name: "{{ item }}"
       update_cache: yes
@@ -18,9 +18,9 @@
         enabled: yes
         state: started
 
-  - name: Criando arquivo docker compose a partir de um template
+  - name: Criando arquivo docker compose
     template:
-      src:  docker-compose.tpl
+      src:  docker-compose.j2
       dest: /root/docker-compose.yml
 
   - name: Copiando artefatos para o servidor
@@ -34,7 +34,7 @@
       - app.py
       - requirements.txt 
 
-  - name: construindo uma imagem com docker_image e pegando nome imagem em var no inventory
+  - name: build the image
     docker_image: >
       name={{image}}
       tag={{tag}}
